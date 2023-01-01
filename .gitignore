@@ -1,0 +1,8 @@
+target/
+
+.vscode
+.idea
+*.iml
+
+js/
+node_modules

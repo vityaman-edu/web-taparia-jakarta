@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TapTaparia!</title>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script>var exports = {};</script>
+    <script type="module" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="module" src="../js/index.js"></script>
+    <script src="../alertifyjs/alertify.min.js"></script>
+    <link rel="stylesheet" href="../alertifyjs/css/alertify.min.css" />
+    <link rel="stylesheet" href="../alertifyjs/css/themes/default.min.css" />
+</head>
+
+<body>
+<nav class="nav">
+    <ul class="nav">
+        <li class="inline"><a class="white" href="https://itmo.ru/">ITMO University</a></li>
+        <li class="inline"><a class="white" href="#">Story</a></li>
+        <li class="inline"><a class="white" href="https://github.com/vityaman">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="header">
+    <h1>Welcome to TapTaparia, Buddy!</h1>
+</header>
+
+<main class="main">
+    <div>
+        <div>
+            <iframe 
+                frameborder="0" 
+                style="border:none;width:100%;height:100px;" 
+                width="100%" 
+                height="100" 
+                src="https://music.yandex.ru/iframe/#track/43724241/5827420">
+                Слушайте 
+                <a href='https://music.yandex.ru/album/5827420/track/43724241'>
+                    X.X. и в продакшн
+                </a> 
+                — 
+                <a href='https://music.yandex.ru/artist/6123761'>
+                    Научно-технический рэп
+                </a> 
+                на Яндекс Музыке
+            </iframe>
+        </div>
+        <div class="container">
+            <div class="left side block">
+                <h4 class="centered-text">Control</h4>
+                <div id="input-area" class="input">
+
+                    <div class="tab">
+                        <button id="tab-button-tap" class="tablinks">Tap</button>
+                        <button id="tab-button-edit" class="tablinks">Edit</button>
+                    </div>
+
+                    <div id="tap" class="tabcontent">
+                        <div class="switch">
+                            <button id="button-tap-add" class="state-switch-button">Add</button>
+                            <button id="button-tap-remove" class="state-switch-button">Remove</button>
+                        </div>
+                    </div>
+                    <div id="edit" class="tabcontent">
+                        <form>
+                            <label for="picture-name">Picture name:</label><br>
+                            <input type="text" id="picture-name" name="picture-name"><br>
+                            <label for="picture-data">Picture data:</label><br>
+                            <textarea 
+                                id="picture-data" 
+                                class="picture-data"
+                                autocomplete="off"
+                                wrap="off"
+                                placeholder="{ ... }">
+                            </textarea>                              
+                            <button id="create-picture" type="button" class="form-button">Create</button>
+                            <button id="get-picture" type="button" class="form-button">Get</button>
+                            <button id="list-pictures" type="button" class="form-button">List</button>
+                            <button id="reload-pictures" type="button" class="form-button"><span class=reload>&#x21bb;</span></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="block">
+                <div class="hovering">
+                    <canvas id="canvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+            <div class="right side block">
+                <h4 class="centered-text">Result</h4>
+                <div class="small-text results">
+                    <table id="result-table" class="centered results">
+                        <tr>
+                            <th>Owner</th>
+                            <th>Point</th>
+                            <th>Result</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <ul>
+        <li class="no-bullet">
+            Author: <a href="https://github.com/vityaman">vityaman@github.com</a>
+        </li>
+        <li class="no-bullet">
+            Sponsor: <a href="https://itmo.ru">ITMO University</a>
+        </li>
+        <li class="no-bullet" style="margin-top: 1%">
+            © 1993-2022 ITMO University
+        </li>
+    </ul>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: taparia-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    entrypoint:
+      - /opt/jboss/wildfly/bin/standalone.sh
+      - -b
+      - 0.0.0.0
+      - -bmanagement
+      - 0.0.0.0
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: admin
+    networks:
+      - taparia-common
+  database:
+    container_name: taparia-database
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    networks:
+      - taparia-common
+networks:
+  taparia-common:
+    name: taparia-common
+    driver: bridge

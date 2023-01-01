@@ -1,0 +1,51 @@
+{
+    "type": "colored",
+    "color": "#00F0FA",
+    "child": {
+        "type": "union",
+        "children": [
+            {
+                "type": "ellipse",
+                "center": { "x": -150, "y": 150 },
+                "radius": { "x": 10, "y": 10 }
+            },
+            {
+                "type": "colored",
+                "color": "#0FF00A",
+                "child": {
+                    "type": "ellipse",
+                    "center": { "x": 150, "y": 150 },
+                    "radius": { "x": 15, "y": 5  }
+                }
+            },
+            {
+                "type": "intersection",
+                "children": [
+                    {
+                        "type": "polygon",
+                        "points": [
+                            { "x":  120, "y":  120 },
+                            { "x": -120, "y":  120 },
+                            { "x": -120, "y":  -20 },
+                            { "x":    0, "y": -100 },
+                            { "x":  120, "y": -20  }
+                        ]
+                    },
+                    {
+                        "type": "negation",
+                        "child": {
+                            "type": "colored",
+                            "color": "#FF1111",
+                            "child": {
+                                "type": "ellipse",
+                                "center": { "x":  0, "y": 50 },
+                                "radius": { "x": 20, "y": 25 }
+                            }
+                        }
+                    }
+                ]
+            }
+            
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionXpathFilter Experimental Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2_xpath_experimental.dtd">
+
+<suppressions>
+    <!-- lombok annotations -->
+    <suppress-xpath checks="VisibilityModifier"
+                    query="//*[MODIFIERS//*[@text = 'Value']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="DesignForExtension"
+                    query="//*[MODIFIERS//*[@text = 'Value']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="FinalClass"
+                    query="//*[MODIFIERS//*[@text = 'Value']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="VisibilityModifier"
+                    query="//*[MODIFIERS//*[@text = 'Getter']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="HideUtilityClassConstructor"
+                    query="//*[MODIFIERS//*[@text = 'UtilityClass']]/descendant-or-self::node()"/>
+
+    <!-- Jakarta EE Annotations -->
+    <suppress-xpath checks="DesignForExtension"
+                    query="//*[MODIFIERS//*[@text = 'Path']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="DesignForExtension"
+                    query="//*[MODIFIERS//*[@text = 'ApplicationScoped']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="DesignForExtension"
+                    query="//*[MODIFIERS//*[@text = 'Provider']]/descendant-or-self::node()"/>
+
+    <suppress-xpath checks="MagicNumber"
+                    query="//*[MODIFIERS//*[@text = 'Size']]/descendant-or-self::node()"/>
+</suppressions>
