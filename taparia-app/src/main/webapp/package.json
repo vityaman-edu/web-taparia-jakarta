@@ -6,6 +6,7 @@
   "dependencies": {
     "alertifyjs": "^1.13.1",
     "jquery": "^3.6.1",
-    "jsoneditor": "^9.9.2"
+    "jsoneditor": "^9.9.2",
+    "typescript": "^5.0.4"
   }
 }
