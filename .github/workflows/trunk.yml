@@ -6,7 +6,7 @@ on:
     branches: ["trunk"]
 jobs:
   build:
-    runs-on: fedora-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -19,10 +19,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'maven'
+        cache: maven
 
     - name: Start Docker
-      run: sudo make start-docker
+      run: make start-docker
 
-    - name: Maven Build & Test
-      run: sudo make wars
+    - name: Prepare Web Application
+      run: make prepare-app
+
+    - name: Maven Package
+      run: mvn --batch-mode --update-snapshots package
