@@ -1,5 +1,7 @@
 # Taparia: Legendary Web Lab
 
+![Total lines](https://img.shields.io/tokei/lines/github/vityaman-edu/semt-taparia-ant)
+
 ## Build & Run
 
 Install requirements:
