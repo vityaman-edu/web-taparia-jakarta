@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="taparia-model" default="compile">
+
+    <property file="build.properties" />
+
+    <path id="libpath">
+        <fileset dir="${lib.dir}" includes="*.jar" />
+    </path>
+    
+    <target name="clean">
+        <echo> Delete .build package</echo>
+        <delete dir="${build.dir}" />
+        <echo> Delete ended successfully</echo>
+    </target>
+
+    <target name="init">
+        <echo> Creating packages</echo>
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.classes.dir}" />
+        <echo> End of package creation</echo>
+    </target>
+
+    <target name="compile" depends="clean, init">
+        <echo> Start compilation</echo>
+        <javac srcdir="${src.module.dir}"
+            destdir="${build.classes.dir}" 
+            includeantruntime="false"
+            includes="**/*.java">
+            <classpath>
+                <path refid="libpath"/>
+            </classpath>
+        </javac>
+    </target>
+
+</project>
