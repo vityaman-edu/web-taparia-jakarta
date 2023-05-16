@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/alertify": "^0.3.31",
+    "@types/jquery": "^3.5.14"
+  },
+  "dependencies": {
+    "alertifyjs": "^1.13.1",
+    "jquery": "^3.6.1",
+    "jsoneditor": "^9.9.2",
+    "typescript": "^5.0.4"
+  }
+}

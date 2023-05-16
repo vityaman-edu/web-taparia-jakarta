@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MISPI3" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="MISPI3" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <property file="build.properties" />
 
@@ -8,20 +8,32 @@
     </path>
     
     <target name="clean">
-        <echo> Delete .build package</echo>
+
+        <echo> ----------PACKAGE REMOVAL - START---------------</echo>
+
         <delete dir="${build.dir}" />
-        <echo> Delete ended successfully</echo>
+
+        <echo> ----------PACKAGE REMOVAL - SUCCESS---------------</echo>
+
     </target>
 
     <target name="init">
-        <echo> Creating packages</echo>
+
+        <echo> ----------PACKAGE CREATION - START---------------</echo>
+
         <mkdir dir="${build.dir}" />
         <mkdir dir="${build.classes.dir}" />
-        <echo> End of package creation</echo>
+        <mkdir dir="${build.lib.dir}" />
+        <mkdir dir="${build.web.dir}" />
+
+        <echo> ----------PACKAGE CREATION - SUCCESS---------------</echo>
+
     </target>
 
     <target name="compile" depends="clean, init">
-        <echo> Start compilation</echo>
+
+        <echo> ----------COMPILE - START---------------</echo>
+
         <javac srcdir="${src.main.dir}"
             destdir="${build.classes.dir}" 
             includeantruntime="false"
@@ -31,6 +43,35 @@
                 <path refid="libpath"/>
             </classpath>
         </javac>
+
+        <echo> ----------COMPILE - SUCCESS---------------</echo>
+
+    </target>
+
+    <target name="build" depends="compile"> 
+
+        <echo> ----------BUILD PROCESS - START---------------</echo>
+
+        <!-- For short time, then it would be WEB-INF and so on. Shall we devide web and back? -->
+
+        <copy todir="${build.lib.dir}">
+            <fileset dir="${lib.dir}" />
+        </copy>
+
+        <copy todir="${build.web.dir}">
+            <fileset dir="${src.web.dir}" />
+        </copy>
+
+        <jar destfile="${build.dir}/${ant.project.name}.jar">
+            <fileset dir="${build.dir}"/>
+            <manifest>
+                <attribute name="Built-by: " value="${user.name}" />
+                <attribute name="Main-class" value="Main" />
+            </manifest>
+        </jar>
+
+        <echo> ----------BUILD PROCESS - SUCCESS---------------</echo>
+
     </target>
 
 </project>
