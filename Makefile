@@ -5,7 +5,8 @@ clean:
 
 prepare-app:
 	cd taparia-app/src/main/webapp
-	tsc
+	npm install
+	npx tsc
 	cd ../../../..
 
 prepare-api:

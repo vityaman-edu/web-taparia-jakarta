@@ -9,8 +9,8 @@ import ru.vityaman.itmo.web.lab.taparia.figure.primitive.Point;
 import static java.lang.Math.pow;
 
 @Value
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString
+@EqualsAndHashCode
 public class Ellipse extends Figure {
     Point center;
     Radius radius;

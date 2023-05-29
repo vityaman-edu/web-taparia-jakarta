@@ -8,8 +8,8 @@ import ru.vityaman.itmo.web.lab.taparia.figure.Figure;
 
 @Value
 @NonFinal
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString
+@EqualsAndHashCode
 public abstract class SoloFigure extends Figure {
     Figure child;
 
