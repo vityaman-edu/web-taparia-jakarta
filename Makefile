@@ -3,9 +3,13 @@
 clean:
 	mvn clean
 
+start-docker:
+	sudo systemctl start docker
+
 prepare-app:
 	cd taparia-app/src/main/webapp
-	tsc
+	npm install
+	npx tsc
 	cd ../../../..
 
 prepare-api:
