@@ -8,11 +8,12 @@ import jakarta.ws.rs.ext.Provider;
 public class IllegalArgumentExceptionHandler
     implements ExceptionMapper<IllegalArgumentException> {
 
+    // TODO: security hole
     @Override
     public Response toResponse(IllegalArgumentException e) {
         return new ApiError(
-            Response.Status.INTERNAL_SERVER_ERROR,
-            "Internal server error"
+            Response.Status.BAD_REQUEST,
+            e.getMessage()
         ).toResponse();
     }
 }

@@ -30,5 +30,8 @@ jobs:
     - name: Maven Package
       run: mvn --batch-mode --update-snapshots package
     
-    - name: Run Integration tests
+    - name: Run Integration test - api
       run: cd test && python3 test_api.py
+    
+    - name: Run Integration test - rand
+      run: cd test && python3 test_rand.py < test_rand_default.txt 
