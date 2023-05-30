@@ -30,6 +30,12 @@ jobs:
     - name: Maven Package
       run: mvn --batch-mode --update-snapshots package
     
+    - name: Run Infra
+      run: 	|
+        docker compose build --no-cache
+        docker compose up -d --build --force-recreate
+        sleep 10
+
     - name: Run Integration test - api
       run: cd test && python3 test_api.py
     
