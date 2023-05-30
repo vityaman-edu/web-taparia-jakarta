@@ -18,7 +18,9 @@ prepare-api:
 wars: prepare-api prepare-app
 	mvn package
 
-infra: clean wars Dockerfile docker-compose.yml
+infra: clean wars Dockerfile docker-compose.yml infra-run
+
+infra-run:
 	sudo docker compose down
 	sudo docker compose build --no-cache
 	sudo docker compose up --build --force-recreate
