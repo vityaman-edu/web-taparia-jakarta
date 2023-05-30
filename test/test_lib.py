@@ -1,8 +1,8 @@
-from typing import NamedTuple
+from typing import Any, Callable, NamedTuple
 import json
 import requests
 
-base_url = "http://ya.ru/"
+base_url = "http://localhost:8080/api/"
 path = lambda suffix: base_url + suffix
 
 class UserCredentials(NamedTuple):
@@ -60,12 +60,12 @@ def users_post(c: UserCredentials) -> Response:
     ))
 
 
-def users_get_by_name(username: str):
+def users_get_by_name(username: str) -> Response:
     return Response(requests.get(
         url = path(f"users?name={username}")
     ))
 
-def pictures_post(t: AccessToken, draft: PictureDraft):
+def pictures_post(t: AccessToken, draft: PictureDraft) -> Response:
     return Response(requests.post(
         url = path("pictures"),
         headers = access_token_headers(t),
@@ -75,21 +75,21 @@ def pictures_post(t: AccessToken, draft: PictureDraft):
         }
     ))
 
-def pictures_get_by_id(t: AccessToken, picture_id: int):
+def pictures_get_by_id(t: AccessToken, picture_id: int) -> Response:
     return Response(requests.get(
         url = path(f"pictures/{picture_id}"),
         headers = access_token_headers(t)
     ))
 
 
-def pictures_get_all_by_owner_id(t: AccessToken, owner_id: int):
+def pictures_get_all_by_owner_id(t: AccessToken, owner_id: int) -> Response:
     return Response(requests.get(
         url = path(f"pictures?owner_id={owner_id}"),
         headers = access_token_headers(t)
     ))
 
 
-def pictures_taps_post(t: AccessToken, picture_id: int, point: Point):
+def pictures_taps_post(t: AccessToken, picture_id: int, point: Point) -> Response:
     return Response(requests.post(
         url = path(f"pictures/{picture_id}/taps"),
         headers = access_token_headers(t),
@@ -118,12 +118,22 @@ def register_user(credentials: UserCredentials) -> AccessToken:
     register_response = users_post(credentials)
 
     if (register_response.status_code == 200):
-        token = register_response.json()
+        token = register_response.origin.json()
     else:
-        token = auth_access_tokens_get(credentials).json()
+        token = auth_access_tokens_get(credentials).origin.json()
 
     token = AccessToken(
         user_id = token.get("user_id"),
         secret  = token.get("secret")
     )   
     return token
+
+
+class ResponseExpectation(NamedTuple):
+    status_code: int
+
+
+class TestAction(NamedTuple):
+    action: Callable[[], Response]
+    expected: ResponseExpectation
+    
