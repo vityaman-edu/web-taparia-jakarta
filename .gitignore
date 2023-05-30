@@ -1,9 +1,14 @@
+# Java
 target/
 
+# IDE
 .vscode
 .idea
 *.iml
 
+# JS/TS/HTML/CSS
 js/
 node_modules
 package-lock.js
+# Python
+__pycache__/
