@@ -9,6 +9,7 @@ target/
 # JS/TS/HTML/CSS
 js/
 node_modules
-package-lock.js
+package-lock.json
+
 # Python
 __pycache__/
