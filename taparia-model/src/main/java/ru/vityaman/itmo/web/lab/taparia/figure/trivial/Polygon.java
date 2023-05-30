@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Value
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString
+@EqualsAndHashCode
 public class Polygon extends Figure {
     private static final long FAIREST_POINT = 999L;
     private static final long SHIFT = 10L;

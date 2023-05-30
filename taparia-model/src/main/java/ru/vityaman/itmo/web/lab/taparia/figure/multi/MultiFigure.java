@@ -10,8 +10,8 @@ import java.util.List;
 
 @Value
 @NonFinal
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString
+@EqualsAndHashCode
 public abstract class MultiFigure extends Figure {
     List<? extends Figure> children;
 
