@@ -28,6 +28,10 @@
             <groupId>ru.vityaman.itmo.web.lab.taparia</groupId>
             <artifactId>taparia-logging</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.vityaman.itmo.web.lab.taparia</groupId>
+            <artifactId>taparia-monitoring</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

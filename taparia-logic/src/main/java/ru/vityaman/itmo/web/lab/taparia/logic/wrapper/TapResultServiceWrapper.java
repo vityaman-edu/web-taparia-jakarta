@@ -16,14 +16,20 @@ public class TapResultServiceWrapper implements TapResultService {
         this.origin = origin;
     }
 
+    /**
+     * Override and call super.
+     */
     @Override
-    public final TapResult tap(Draft draft) throws LogicException {
+    public TapResult tap(Draft draft) throws LogicException {
         return origin.tap(draft);
     }
 
+    /**
+     * Override and call super.
+     */
     @Override
-    public final List<TapResult> findAllTapResults(
-        Id ownerId, Picture.Id pictureId
+    public List<TapResult> findAllTapResults(
+            Id ownerId, Picture.Id pictureId
     ) throws LogicException {
         return origin.findAllTapResults(ownerId, pictureId);
     }

@@ -2,6 +2,7 @@ package ru.vityaman.itmo.web.lab.taparia.backend;
 
 import lombok.SneakyThrows;
 import lombok.Value;
+import ru.vityaman.itmo.web.lab.taparia.common.monitoring.mbean.MBeanMonitoringService;
 import ru.vityaman.itmo.web.lab.taparia.logic.abstraction.AuthService;
 import ru.vityaman.itmo.web.lab.taparia.logic.abstraction.PictureService;
 import ru.vityaman.itmo.web.lab.taparia.logic.abstraction.SecretsService;
@@ -15,7 +16,9 @@ import ru.vityaman.itmo.web.lab.taparia.logic.basic.BasicTapResultService;
 import ru.vityaman.itmo.web.lab.taparia.logic.basic.BasicUserService;
 import ru.vityaman.itmo.web.lab.taparia.logic.logging.LoggingPictureService;
 import ru.vityaman.itmo.web.lab.taparia.logic.logging.LoggingUserService;
+import ru.vityaman.itmo.web.lab.taparia.logic.monitored.MonitoredTapResultService;
 
+import java.lang.management.ManagementFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -31,6 +34,10 @@ public class Services {
     @SneakyThrows({NoSuchAlgorithmException.class})
     public static Services build(Config config, Storages storage) {
         final var log = config.logFactory().newNamedLog("Startup");
+
+        final var monitoring = new MBeanMonitoringService(
+            ManagementFactory.getPlatformMBeanServer()
+        ).of("taparia");
 
         final var secretsService =
             new BasicSecretsService(
@@ -71,10 +78,14 @@ public class Services {
         log.info("PictureService ready");
 
         final var tapResultService =
-            new BasicTapResultService(
-                pictureService,
-                storage.tapResult()
+            new MonitoredTapResultService(
+                new BasicTapResultService(
+                    pictureService,
+                    storage.tapResult()
+                ),
+                monitoring.of("TapResultService")
             );
+
 
         return new Services(
             secretsService,
