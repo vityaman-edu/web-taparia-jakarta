@@ -17,7 +17,11 @@ import ru.vityaman.itmo.web.lab.taparia.logic.basic.BasicUserService;
 import ru.vityaman.itmo.web.lab.taparia.logic.logging.LoggingPictureService;
 import ru.vityaman.itmo.web.lab.taparia.logic.logging.LoggingUserService;
 import ru.vityaman.itmo.web.lab.taparia.logic.monitored.MonitoredTapResultService;
+import ru.vityaman.itmo.web.lab.taparia.logic.strange.Last5PointsFigureAreaCalculatingTapResultService;
+import ru.vityaman.itmo.web.lab.taparia.logic.strange.Last5PointsFigureAreaMXBean;
 
+import javax.management.JMException;
+import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,68 +35,85 @@ public class Services {
     PictureService picture;
     TapResultService tapResult;
 
-    @SneakyThrows({NoSuchAlgorithmException.class})
+    @SneakyThrows({
+            NoSuchAlgorithmException.class,
+            JMException.class,
+    })
     public static Services build(Config config, Storages storage) {
         final var log = config.logFactory().newNamedLog("Startup");
 
-        final var monitoring = new MBeanMonitoringService(
-            ManagementFactory.getPlatformMBeanServer()
-        ).of(config.serviceName());
+        final var mbeanServer = ManagementFactory.getPlatformMBeanServer();
+
+        final var monitoring = new MBeanMonitoringService(mbeanServer)
+                .of(config.serviceName());
 
         final var secretsService =
-            new BasicSecretsService(
-                MessageDigest.getInstance("SHA-256"),
-                new SecureRandom(),
-                config.clock()
-            );
+                new BasicSecretsService(
+                        MessageDigest.getInstance("SHA-256"),
+                        new SecureRandom(),
+                        config.clock()
+                );
+
         final var tokenService =
-            new BasicAccessTokenService(
-                secretsService,
-                storage.accessToken(),
-                config.clock()
-            );
+                new BasicAccessTokenService(
+                        secretsService,
+                        storage.accessToken(),
+                        config.clock()
+                );
 
         final var authService =
-            new BasicAuthService(
-                storage.user(),
-                secretsService,
-                tokenService
-            );
+                new BasicAuthService(
+                        storage.user(),
+                        secretsService,
+                        tokenService
+                );
 
         final var userService =
-            new LoggingUserService(
-                config.logFactory(),
-                new BasicUserService(
-                    storage.user(),
-                    authService
-                )
-            );
+                new LoggingUserService(
+                        config.logFactory(),
+                        new BasicUserService(
+                                storage.user(),
+                                authService
+                        )
+                );
         log.info("UserService ready");
 
 
         final var pictureService =
-            new LoggingPictureService(
-                config.logFactory(),
-                new BasicPictureService(storage.picture())
-            );
+                new LoggingPictureService(
+                        config.logFactory(),
+                        new BasicPictureService(storage.picture())
+                );
         log.info("PictureService ready");
 
+        final var area = new Last5PointsFigureAreaMXBean.Instance(0);
+
+        mbeanServer.registerMBean(area, new ObjectName(String.format(
+                "%s:type=%s,name=%s",
+                area.getClass().getPackageName(),
+                area.getClass().getCanonicalName(),
+                config.serviceName() + ".Last5PointsFigureArea"
+        )));
+
         final var tapResultService =
-            new MonitoredTapResultService(
-                new BasicTapResultService(
-                    pictureService,
-                    storage.tapResult()
-                ),
-                monitoring.of("TapResultService")
-            );
+                new Last5PointsFigureAreaCalculatingTapResultService(
+                        new MonitoredTapResultService(
+                                new BasicTapResultService(
+                                        pictureService,
+                                        storage.tapResult()
+                                ),
+                                monitoring.of("TapResultService")
+                        ),
+                        area::setValue
+                );
 
 
         return new Services(
-            secretsService,
-            authService,
-            userService,
-            pictureService,
-            tapResultService
+                secretsService,
+                authService,
+                userService,
+                pictureService,
+                tapResultService
         );
     }
 }
