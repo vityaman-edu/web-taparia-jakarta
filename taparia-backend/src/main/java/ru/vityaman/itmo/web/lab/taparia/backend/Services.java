@@ -37,7 +37,7 @@ public class Services {
 
         final var monitoring = new MBeanMonitoringService(
             ManagementFactory.getPlatformMBeanServer()
-        ).of("taparia");
+        ).of(config.serviceName());
 
         final var secretsService =
             new BasicSecretsService(

@@ -7,6 +7,7 @@ import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import ru.vityaman.itmo.web.lab.taparia.api.Api;
 import ru.vityaman.itmo.web.lab.taparia.api.route.auth.message.AccessTokenView;
 import ru.vityaman.itmo.web.lab.taparia.backend.Backend;
 import ru.vityaman.itmo.web.lab.taparia.logic.exception.LogicException;
@@ -14,7 +15,7 @@ import ru.vityaman.itmo.web.lab.taparia.user.UserCredentials;
 
 @Path("/auth")
 public class AuthRoute {
-    private final Backend backend = Backend.instance();
+    private final Backend backend = Api.backend();
 
     @GET
     @Path("/access_tokens")

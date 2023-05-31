@@ -15,6 +15,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import ru.vityaman.itmo.web.lab.taparia.Picture;
 import ru.vityaman.itmo.web.lab.taparia.TapResult;
+import ru.vityaman.itmo.web.lab.taparia.api.Api;
 import ru.vityaman.itmo.web.lab.taparia.api.route.taps.message.TapResultView;
 import ru.vityaman.itmo.web.lab.taparia.backend.Backend;
 import ru.vityaman.itmo.web.lab.taparia.common.model.serialize.figure.VectorView;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Path("/pictures/{pictureId}/taps")
 public class TapsRoute {
-    private final Backend backend = Backend.instance();
+    private final Backend backend = Api.backend();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

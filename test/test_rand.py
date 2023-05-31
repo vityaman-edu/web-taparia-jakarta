@@ -137,8 +137,17 @@ def tap_get():
 actions = [
     picture_create,
     picture_get,
+    picture_get,
+    picture_get,
+    picture_get_all,
     picture_get_all,
     tap_post,
+    tap_post,
+    tap_post,
+    tap_post,
+    tap_post,
+    tap_get,
+    tap_get,
     tap_get,
 ]
 

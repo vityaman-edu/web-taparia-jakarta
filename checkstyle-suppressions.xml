@@ -28,6 +28,9 @@
     <suppress-xpath checks="DesignForExtension"
                     query="//*[MODIFIERS//*[@text = 'ApplicationScoped']]/descendant-or-self::node()"/>
 
+    <suppress-xpath checks="HideUtilityClassConstructor"
+                    query="//*[MODIFIERS//*[@text = 'ApplicationScoped']]/descendant-or-self::node()"/>
+
     <suppress-xpath checks="DesignForExtension"
                     query="//*[MODIFIERS//*[@text = 'Provider']]/descendant-or-self::node()"/>
 
