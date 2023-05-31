@@ -16,8 +16,8 @@ public final class NamespacedMonitoringService implements MonitoringService {
     }
 
     @Override
-    public Counter counter(String name) {
-        return origin.counter(namespaced(name));
+    public Counter counter(String name, Counter.OnChangeListener onChange) {
+        return origin.counter(namespaced(name), onChange);
     }
 
     private String namespaced(String name) {

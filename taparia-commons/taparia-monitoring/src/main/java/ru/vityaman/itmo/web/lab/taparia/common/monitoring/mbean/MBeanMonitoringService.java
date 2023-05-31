@@ -16,8 +16,8 @@ public final class MBeanMonitoringService implements MonitoringService {
 
     @SneakyThrows
     @Override
-    public Counter counter(String name) {
-        final var counter = new CounterMXBean.Instance();
+    public Counter counter(String name, Counter.OnChangeListener onChange) {
+        final var counter = new CounterMXBean.Instance(0, onChange);
         register(name, counter);
         return counter;
     }
