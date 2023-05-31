@@ -6,7 +6,6 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import ru.vityaman.itmo.web.lab.taparia.backend.Backend;
-import ru.vityaman.itmo.web.lab.taparia.logic.abstraction.AuthService;
 import ru.vityaman.itmo.web.lab.taparia.logic.exception.LogicException;
 import ru.vityaman.itmo.web.lab.taparia.user.UserAccessToken;
 import ru.vityaman.itmo.web.lab.taparia.user.UserCredentials;
@@ -15,27 +14,28 @@ import ru.vityaman.itmo.web.lab.taparia.user.UserCredentials;
 @RequestScoped
 @Named("loginForm")
 public final class LoginForm {
-    private final AuthService authService =
-        Backend.instance().authService();
+    private final Backend backend = App.backend();
 
     private String username = "";
     private String password = "";
     private String error = "";
 
     public void doLogin() {
-        saveTokenAndRedirect(authService::login);
+        final var auth = backend.authService();
+        saveTokenAndRedirect(auth::login);
     }
 
     public void doRegister() {
-        saveTokenAndRedirect(authService::register);
+        final var auth = backend.authService();
+        saveTokenAndRedirect(auth::register);
     }
 
     private void saveTokenAndRedirect(TokenExchanger exchanger) {
         try {
             final var token = exchanger.exchange(extractCredentials());
             ExternalContext ctx = FacesContext
-                .getCurrentInstance()
-                .getExternalContext();
+                    .getCurrentInstance()
+                    .getExternalContext();
             addCookie(ctx, "user_id", String.valueOf(token.userId().value()));
             addCookie(ctx, "access_token", token.secret().value());
             ctx.redirect("html/index.html");
@@ -55,7 +55,7 @@ public final class LoginForm {
     @FunctionalInterface
     private interface TokenExchanger {
         UserAccessToken exchange(UserCredentials credentials)
-            throws LogicException;
+                throws LogicException;
     }
 
     public String getUsername() {

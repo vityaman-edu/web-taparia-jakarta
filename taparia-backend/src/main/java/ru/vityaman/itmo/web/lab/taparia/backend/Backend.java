@@ -8,26 +8,12 @@ import ru.vityaman.itmo.web.lab.taparia.logic.abstraction.UserService;
 import ru.vityaman.itmo.web.lab.taparia.logic.secured.SecuredPictureService;
 import ru.vityaman.itmo.web.lab.taparia.user.UserAccessToken;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public final class Backend {
-    private static final AtomicReference<Backend> INSTANCE
-        = new AtomicReference<>();
-
-    public static Backend instance() {
-        synchronized (INSTANCE) {
-            if (INSTANCE.get() == null) {
-                INSTANCE.set(new Backend());
-            }
-            return INSTANCE.get();
-        }
-    }
-
     private final Services service;
     private final Config config;
 
-    private Backend() {
-        this.config = Config.build();
+    public Backend(String serviceName) {
+        this.config = Config.build(serviceName);
         final var log = config.logFactory().newNamedLog("Startup");
         log.info("Config ready");
 

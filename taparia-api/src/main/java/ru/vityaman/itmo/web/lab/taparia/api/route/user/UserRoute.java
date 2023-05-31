@@ -9,6 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import ru.vityaman.itmo.web.lab.taparia.api.Api;
 import ru.vityaman.itmo.web.lab.taparia.api.error.NotFoundError;
 import ru.vityaman.itmo.web.lab.taparia.api.route.auth.message.AccessTokenView;
 import ru.vityaman.itmo.web.lab.taparia.api.route.user.message.UserView;
@@ -19,7 +20,7 @@ import ru.vityaman.itmo.web.lab.taparia.user.UserCredentials;
 
 @Path("/users")
 public class UserRoute {
-    private final Backend backend = Backend.instance();
+    private final Backend backend = Api.backend();
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)

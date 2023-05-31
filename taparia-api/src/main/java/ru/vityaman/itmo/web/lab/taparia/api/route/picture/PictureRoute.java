@@ -14,6 +14,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import ru.vityaman.itmo.web.lab.taparia.Picture;
+import ru.vityaman.itmo.web.lab.taparia.api.Api;
 import ru.vityaman.itmo.web.lab.taparia.api.route.picture.message.CreatePictureRequest;
 import ru.vityaman.itmo.web.lab.taparia.api.route.picture.message.CreatePictureResponse;
 import ru.vityaman.itmo.web.lab.taparia.api.route.picture.message.PictureView;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Path("/pictures")
 public class PictureRoute {
-    private final Backend backend = Backend.instance();
+    private final Backend backend = Api.backend();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

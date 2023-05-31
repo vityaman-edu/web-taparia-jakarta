@@ -5,23 +5,20 @@
 
     <parent>
         <groupId>ru.vityaman.itmo.web.lab.taparia</groupId>
-        <artifactId>taparia</artifactId>
+        <artifactId>taparia-commons</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>taparia-commons</artifactId>
+    <artifactId>taparia-monitoring</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging>
-    <name>taparia-commons</name>
+    <packaging>jar</packaging>
+    <name>taparia-monitoring</name>
 
-    <modules>
-        <module>taparia-logging</module>
-        <module>taparia-monitoring</module>
-    </modules>
-
-    <properties>
-        <maven.compiler.release>17</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 </project>

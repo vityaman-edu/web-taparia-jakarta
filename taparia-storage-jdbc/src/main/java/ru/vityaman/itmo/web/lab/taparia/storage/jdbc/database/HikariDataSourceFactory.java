@@ -12,7 +12,8 @@ public final class HikariDataSourceFactory {
     private static final Map<String, String> PROPERTIES = Map.of(
         "cachePrepStmts", "true",
         "prepStmtCacheSize", "250",
-        "prepStmtCacheSqlLimit", "2048"
+        "prepStmtCacheSqlLimit", "2048",
+        "registerMbeans", "true"
     );
 
     public static DataSource create(JdbcConfig config) {

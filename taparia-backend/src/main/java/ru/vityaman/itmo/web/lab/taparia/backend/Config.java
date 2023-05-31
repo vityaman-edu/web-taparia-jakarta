@@ -10,11 +10,12 @@ import java.time.Clock;
 
 @Value
 public class Config {
+    String serviceName;
     Clock clock;
     LogFactory logFactory;
     JdbcConfig jdbc;
 
-    public static Config build() {
+    public static Config build(String serviceName) {
         final var host = "database";
         final var port = 5432;
         final var db = "postgres";
@@ -30,6 +31,7 @@ public class Config {
         final var logFactory = new JbossLogFactory();
 
         return new Config(
+            serviceName,
             Clock.systemUTC(),
             logFactory,
             jdbcConfig
