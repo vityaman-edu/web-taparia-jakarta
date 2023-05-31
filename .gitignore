@@ -1,5 +1,6 @@
 # Java
 target/
+bin/
 
 # IDE
 .vscode
