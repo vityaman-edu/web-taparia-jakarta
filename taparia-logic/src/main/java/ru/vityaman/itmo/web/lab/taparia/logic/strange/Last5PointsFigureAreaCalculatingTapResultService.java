@@ -41,7 +41,7 @@ public final class Last5PointsFigureAreaCalculatingTapResultService
         return tap;
     }
 
-    // https://www.geeksforgeeks.org/area-of-a-polygon-with-given-n-ordered-vertices/
+    // geeksforgeeks.org/area-of-a-polygon-with-given-n-ordered-vertices/
     private double polygonArea(List<Point> points) {
         final var p = new ArrayList<>(points);
         double area = 0.0;
