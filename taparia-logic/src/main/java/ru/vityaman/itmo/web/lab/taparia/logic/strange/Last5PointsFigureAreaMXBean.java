@@ -3,6 +3,8 @@ package ru.vityaman.itmo.web.lab.taparia.logic.strange;
 public interface Last5PointsFigureAreaMXBean {
     double getValue();
 
+    double getGraph();
+
     void setValue(double value);
 
     final class Instance implements Last5PointsFigureAreaMXBean {
@@ -14,6 +16,11 @@ public interface Last5PointsFigureAreaMXBean {
 
         @Override
         public double getValue() {
+            return value;
+        }
+
+        @Override
+        public double getGraph() {
             return value;
         }
 
